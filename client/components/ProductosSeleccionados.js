@@ -1,9 +1,9 @@
 import React, {useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-//import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons'
 
-export default function ProductosSeleccionados({ productosSeleccionados, supermercadoId }) {
+export default function ProductosSeleccionados({eliminarProductoSeleccionado, productosSeleccionados, supermercadoId }) {
 
   // Marcar los productos seleccionados al inicializar el componente
   useEffect(() => {
@@ -41,6 +41,12 @@ export default function ProductosSeleccionados({ productosSeleccionados, superme
       {productosSeleccionados.map((producto) => (
         <View style={styles.productoSeleccionado} key={producto.id}>
           {/*<Icon style={styles.productoCruz} name="radio-button-on" size={15} />*/}
+          <TouchableOpacity 
+            style={styles.eliminarButton}
+            onPress={() => eliminarProductoSeleccionado(producto.id)}
+          >
+            <Icon style={styles.productoCruz} name="close" size={15} />
+          </TouchableOpacity>
           <Text style={styles.productoNombre}>{producto.nombre}</Text>
           <Text style={styles.productoMarca}>{producto.marca}</Text>
           {/* Agregar más detalles del producto seleccionado según tus necesidades */}
@@ -89,6 +95,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white', // Color del texto
   },
+  productoCruz: {
+    color: 'red', // Color
+  }
   
   // Agregar más estilos según tus necesidades
 });
