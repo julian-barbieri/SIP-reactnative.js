@@ -89,10 +89,21 @@ export default function ListaProductos({ supermercadoId }) {
             style={styles.productoItem}
             onPress={() => productoSeleccionado(item.id)}
             >
-            {/*<Icon style={styles.productoCruz} onPress={() => eliminarProductoSeleccionado(item.id)} name="close-outline" size={20} color="red" />*/}
             <Text style={styles.productoNombre}>{item.nombre}</Text>
             <Text style={styles.productoMarca}>{item.marca}</Text>
-            <Text style={styles.productoPrecio}>${item.precioUnidad}</Text>
+            {item.descuento == 0 && (
+              <Text style={styles.productoPrecio}>
+                <Text style={styles.productoPrecio}>${item.precioUnidad}</Text>
+              </Text>
+            )}
+            {item.descuento > 0 && (
+              <>
+                <Text style={styles.productoPrecioDescuento}>${item.precioUnidad}</Text>
+                <Text style={styles.productoPrecio}>
+                  ${(item.precioUnidad * (1 - item.descuento / 100)).toFixed(2)}
+                </Text>
+              </>
+            )}
             {item.stock === false && (
               <Text style={styles.stock}>Sin stock</Text>
             )}
@@ -178,4 +189,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
   },
+  productoPrecioDescuento: {
+    textDecorationLine: 'line-through',
+
+  }
 });

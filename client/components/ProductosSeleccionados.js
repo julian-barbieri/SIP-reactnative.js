@@ -17,6 +17,7 @@ export default function ProductosSeleccionados({eliminarProductoSeleccionado, pr
   const navigation = useNavigation();
 
   const handleSubmit = async (data) => {
+    console.log(productosSeleccionados);
       navigation.navigate('Mapa', {
         idSupermercado: supermercadoId,
         productosSeleccionados: productosSeleccionados, 
@@ -24,6 +25,8 @@ export default function ProductosSeleccionados({eliminarProductoSeleccionado, pr
   }
   return (
     <View style={styles.container}>
+        
+        {/* BOTON FINALIZAR LISTA */}
         <TouchableOpacity
             style={[
                 styles.finalizarButton,
@@ -40,16 +43,19 @@ export default function ProductosSeleccionados({eliminarProductoSeleccionado, pr
 
       {productosSeleccionados.map((producto) => (
         <View style={styles.productoSeleccionado} key={producto.id}>
-          {/*<Icon style={styles.productoCruz} name="radio-button-on" size={15} />*/}
+          
+          {/*Eliminar boton*/}
           <TouchableOpacity 
             style={styles.eliminarButton}
             onPress={() => eliminarProductoSeleccionado(producto.id)}
           >
             <Icon style={styles.productoCruz} name="close" size={15} />
           </TouchableOpacity>
+
+          {/*Info del producto*/}
           <Text style={styles.productoNombre}>{producto.nombre}</Text>
           <Text style={styles.productoMarca}>{producto.marca}</Text>
-          {/* Agregar más detalles del producto seleccionado según tus necesidades */}
+  
         </View>
       ))}
     </View>
