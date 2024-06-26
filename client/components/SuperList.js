@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { SelectList } from 'react-native-dropdown-select-list'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect  } from '@react-navigation/native';
 
 export default function SuperList() {
     const [listaSuper, setListaSuper] = useState([]);
@@ -11,8 +11,9 @@ export default function SuperList() {
     const navigation = useNavigation();
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/supermercados`)
+        axios.get(`http://localhost:3001/supermercados/with-products`)
             .then((response) => {
+                console.log(response.data);
                 setSuperCompleto(response.data);
                 const supermercadosOptions = response.data.map((supermercado) => ({
                     key: supermercado.id,
@@ -36,6 +37,7 @@ export default function SuperList() {
           });
         }
     };
+    
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Seleccioná el supermercado</Text>
@@ -46,6 +48,7 @@ export default function SuperList() {
                 setSelected={(val) => setSupermercado(val)}
                 placeholder='Seleccioná una opción'
                 onSelect={handleOnSelect}
+                defaultOption={{ key: '', value: 'Seleccioná una opción' }} // Reset to default placeholder
             />
             
         </View>

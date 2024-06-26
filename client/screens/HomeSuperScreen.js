@@ -29,11 +29,11 @@ export default function HomeSuperScreen({ route, navigation }) {
       </Text>
       <SuperList style={styles.selectSuper}/>
       <TouchableOpacity 
-                    style={styles.salirButton} 
-                    onPress={handleSalir} 
-                    title="Salir"
-                    >
-          <Text style={styles.salirButtonText}>Salir</Text>
+        style={styles.salirButton} 
+        onPress={handleSalir} 
+        title="Salir"
+      >
+      <Text style={styles.salirButtonText}>Salir</Text>
       </TouchableOpacity>
     </View>
   );

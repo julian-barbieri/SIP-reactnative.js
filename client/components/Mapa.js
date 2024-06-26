@@ -21,7 +21,7 @@ export default function Mapa({ supermercado, productosSeleccionados }) {
     axios.get(`http://localhost:3001/gondolas/${supermercado.id}`).then((response) => {
       setGondolas(response.data);
     });
-  }, [supermercado]);
+  }, [productosSeleccionados, supermercado]);
 
   const gondolasAjustadas = gondolas.map(gondola => ({
     ...gondola,
@@ -30,22 +30,26 @@ export default function Mapa({ supermercado, productosSeleccionados }) {
   }));
 
   const gonSeleccionadas = () => {
-    const gondolasSelec = [];
-    gondolas.map(gondola => {
-      productosSeleccionados.map(producto => {
-        if(producto.GondolaId === gondola.id){
-          gondolasSelec.push(producto);
+
+    // Utilizamos un Set para asegurarnos de que no haya duplicados
+    const gondolasSet = new Set();
+
+    gondolas.forEach(gondola => {
+      productosSeleccionados.forEach(producto => {
+        if (producto.GondolaId === gondola.id) {
+          gondolasSet.add(gondola);
         }
-      })
-    })
-    return gondolasSelec;
+      });
+    });
+
+    // Convertimos el Set de nuevo a un array
+    return Array.from(gondolasSet);
   } 
 
   const prodSeleccionado = (gondolaId) => {
     const product = [];
     productosSeleccionados.map(producto => {
       if(producto.GondolaId === gondolaId){
-        console.log(producto);
         product.push(producto);
       }
     })
