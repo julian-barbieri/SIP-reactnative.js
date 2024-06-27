@@ -73,12 +73,14 @@ export default function ListaProductos({ supermercadoId }) {
         eliminarProductoSeleccionado={eliminarProductoSeleccionado}
         supermercadoId={supermercadoId}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Buscar productos"
-        value={search}
-        onChangeText={(text) => setSearch(text)}
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Buscar productos"
+          value={search}
+          onChangeText={(text) => setSearch(text)}
+        />
+      </View>
       <View style={styles.listaProductos}>
       <FlatList 
         numColumns={2}
@@ -120,6 +122,7 @@ export default function ListaProductos({ supermercadoId }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    minWidth: '80%',
     alignItems: 'center',
     marginTop: 20,
     backgroundColor: '#f0f0f0',
@@ -131,41 +134,57 @@ const styles = StyleSheet.create({
     height: 'auto',
     flex: 1 
   },
+  inputContainer: {
+    width: '90%',
+    alignItems: 'center', // Centra el input horizontalmente
+    marginBottom: 10,
+  },
   input: {
-    width: 200,
+    width: '100%',
     height: 40,
-    borderColor: 'black',
+    borderColor: '#ddd',
     borderWidth: 1,
     marginBottom: 10,
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   productoItem: {
-    backgroundColor: '#fedb41',
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
     padding: 16,
     marginBottom: 10,
     marginTop: 10,
     marginRight: 10,
     marginLeft: 10,
-    borderWidth: 1,
-    borderColor: 'black',
     minWidth: 175,
+    elevation: 3,
   },
   productoNombre: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#333'
   },
   productoPrecio: {
     fontSize: 16,
+    color: '#007bff'
   },
   productoMarca: {
     fontSize: 16,
+    color: '#555',
   },
   productoCruz: {
     marginRight: 10,
   },
   stock: {
-    color: 'red',
+    color: '#dc3545',
     fontWeight: 'bold',
   },
   productosSeleccionadosContainer: {

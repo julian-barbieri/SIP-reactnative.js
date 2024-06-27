@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { SelectList } from 'react-native-dropdown-select-list'
-import { useNavigation, useFocusEffect  } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SuperList() {
     const [listaSuper, setListaSuper] = useState([]);

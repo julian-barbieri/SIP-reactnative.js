@@ -64,9 +64,9 @@ export default function ProductosSeleccionados({eliminarProductoSeleccionado, pr
 
 const styles = StyleSheet.create({
   container: {
+    width: '90%',
     padding: 10,
     borderRadius: 8,
-    marginTop: 20,
     marginBottom: 20,
     border: 1
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   finalizarButton: {
-    backgroundColor: 'blue', // Color de fondo predeterminado
+    backgroundColor: '#4a90e2', // Color de fondo predeterminado
     padding: 10,
     borderRadius: 8,
     alignItems: 'center',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     color: 'white', // Color del texto
   },
   productoCruz: {
-    color: 'red', // Color
+    color: '#ff6f61', // Color
   }
   
   // Agregar más estilos según tus necesidades

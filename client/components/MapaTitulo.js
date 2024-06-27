@@ -1,52 +1,65 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-export default function MapaTitulo({ supermercado }) {
+export default function MapaTitulo() {
   return (
     <View style={styles.titulos}>
-        <View style={styles.subtitulos}>
-            <Text style={[styles.entrada]}>Entrada    </Text>
-            <Text style={[styles.salida]}>Salida    </Text>
-            <Text style={[styles.gondola]}>Gondolas    </Text>
-        </View>
-        <View>
-            <Text style={[styles.camino]}>Encuentra tu producto siguiendo el camino azul</Text>
-        </View>
+      <View style={styles.subtitulos}>
+        <Text style={[styles.entrada]}>Entrada</Text>
+        <Text style={[styles.salida]}>Salida</Text>
+        <Text style={[styles.gondola]}>Góndolas</Text>
+      </View>
+      <View>
+        <Text style={styles.camino}>Encuentra tu producto siguiendo el camino azul</Text>
+      </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
-    titulos: {
-        alignItems: 'center',
-        marginTop: 10,
-        display: 'flex',
-      },
-    subtitulos: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        fontWeight: 'bold',
-      },
-    supermercado: {
-        fontSize: 18,
-        fontWeight: 'bold',
-      },
-    salida: {
-        color: 'red',
-        fontWeight: 'bold',
-      },
-    entrada: {
-        color: 'green',
-        fontWeight: 'bold',
-      },
-      gondola: {
-        color: 'orange',
-        fontWeight: 'bold',
-      },
-    camino: {
-        color: 'black',
-        fontSize: 15,
-        marginTop: 10,
-        fontWeight: 'bold',
-    }
+  titulos: {
+    alignItems: 'center',
+    marginTop: 20,
+    margin: 15,
+    padding: 10,
+    backgroundColor: '#f9f9f9', // Fondo claro para resaltar el contenedor
+    borderRadius: 10, // Bordes redondeados
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3, // Sombra para Android
+  },
+  subtitulos: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%', // Ajusta el ancho para asegurar el espacio alrededor
+    paddingVertical: 10, // Añade espacio vertical
+  },
+  entrada: {
+    color: '#28a745', // Verde
+    fontWeight: 'bold',
+    fontSize: 16,
+    paddingHorizontal: 10, // Espacio horizontal alrededor del texto
+  },
+  salida: {
+    color: '#dc3545', // Rojo
+    fontWeight: 'bold',
+    fontSize: 16,
+    paddingHorizontal: 10,
+  },
+  gondola: {
+    color: '#fd7e14', // Naranja
+    fontWeight: 'bold',
+    fontSize: 16,
+    paddingHorizontal: 10,
+  },
+  camino: {
+    color: '#007bff', // Azul
+    fontSize: 14,
+    marginTop: 10,
+    textAlign: 'center',
+    fontWeight: '600',
+    paddingHorizontal: 20, // Espacio horizontal para evitar el texto pegado a los bordes
+  }
 });
