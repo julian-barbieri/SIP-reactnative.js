@@ -1,5 +1,4 @@
 // ListaProductos.js
-
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -105,8 +104,11 @@ export default function ListaProductos({ supermercadoId }) {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Pressable
-              style={styles.productoItem}
-              onPress={() => productoSeleccionado(item.id)}
+              style={[
+                styles.productoItem,
+                productosSeleccionados.some(producto => producto.id === item.id) && styles.productoSeleccionado, // Estilo condicional
+                ]}
+                onPress={() => productoSeleccionado(item.id)}
             >
               <Text style={styles.productoNombre}>{item.nombre}</Text>
               <Text style={styles.productoMarca}>{item.marca}</Text>
@@ -218,12 +220,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   productoSeleccionado: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "gray",
+    borderColor: "#000", // Cambia el color del borde a negro si está seleccionado
+    borderWidth: 2,
   },
   productoPrecioDescuento: {
     textDecorationLine: "line-through",

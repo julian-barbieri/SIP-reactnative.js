@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/Ionicons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function ProductosSeleccionados({
   eliminarProductoSeleccionado,
@@ -49,7 +49,9 @@ export default function ProductosSeleccionados({
             style={styles.eliminarButton}
             onPress={() => eliminarProductoSeleccionado(producto.id)}
           >
-            <Icon style={styles.productoCruz} name="close" size={15} />
+            <Text>
+              <MaterialIcons style={styles.productoCruz} name="close" size={15} selectable={undefined}/>
+            </Text>{/*<Icon style={styles.productoCruz} name="close" size={15} />*/}
           </Pressable>
 
           {/*Info del producto*/}
