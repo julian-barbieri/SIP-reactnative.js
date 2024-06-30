@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import ubicGondolaSeleccionada from './PathFinding.js/ubicGondolaSeleccionada';
-import encontrarCamino from './PathFinding.js/encontrarCamino';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import ubicGondolaSeleccionada from "./PathFinding.js/ubicGondolaSeleccionada";
+import encontrarCamino from "./PathFinding.js/encontrarCamino";
 
-export default function MapaCuadricula({ numAncho, numLargo, entradax, entraday, salidax, saliday, gondolas, productosSeleccionados }) {
+export default function MapaCuadricula({
+  numAncho,
+  numLargo,
+  entradax,
+  entraday,
+  salidax,
+  saliday,
+  gondolas,
+  productosSeleccionados,
+}) {
   const [grid, setGrid] = useState([]);
 
   // Inicializa tu cuadrícula con celdas libres
@@ -15,42 +24,49 @@ export default function MapaCuadricula({ numAncho, numLargo, entradax, entraday,
 
     // Marca las celdas ocupadas por góndolas según tu base de datos
     gondolas.forEach((gondola) => {
-      for (let row = gondola.ubicaciony; row < gondola.ubicaciony + gondola.largo; row++) {
-        for (let col = gondola.ubicacionx; col < gondola.ubicacionx + gondola.ancho; col++) {
+      for (
+        let row = gondola.ubicaciony;
+        row < gondola.ubicaciony + gondola.largo;
+        row++
+      ) {
+        for (
+          let col = gondola.ubicacionx;
+          col < gondola.ubicacionx + gondola.ancho;
+          col++
+        ) {
           initialGrid[row][col] = { occupied: true };
         }
       }
     });
 
     setGrid(initialGrid);
-
   }, [numLargo, numAncho, gondolas]);
 
   function calculateCirclePosition(ubicExacta) {
     const circleStyle = {
-      position: 'absolute',
+      position: "absolute",
       width: 15,
       height: 15,
       borderRadius: 7.5,
-      backgroundColor: '#4a90e2', // Azul suave
-      alignItems: 'center',
-      justifyContent: 'center',
+      backgroundColor: "#4a90e2", // Azul suave
+      alignItems: "center",
+      justifyContent: "center",
     };
 
     switch (ubicExacta) {
-      case 'derecha':
+      case "derecha":
         circleStyle.right = 0;
         circleStyle.top = 7.5;
         break;
-      case 'izquierda':
+      case "izquierda":
         circleStyle.left = 0;
         circleStyle.top = 7.5;
         break;
-      case 'arriba':
+      case "arriba":
         circleStyle.top = 0;
         circleStyle.right = 7.5;
         break;
-      case 'abajo':
+      case "abajo":
         circleStyle.bottom = 0;
         circleStyle.right = 7.5;
         break;
@@ -76,11 +92,13 @@ export default function MapaCuadricula({ numAncho, numLargo, entradax, entraday,
 
       const estiloCuadro = {
         ...styles.cuadro,
-        backgroundColor: 
-          esEntrada ? '#4caf50' : // Verde suave para entrada
-          esSalida ? '#ff6f61' : // Rojo suave para salida
-          gondolaOcupada ? '#fedb41' : // Amarillo suave para góndolas
-          'white',
+        backgroundColor: esEntrada
+          ? "#4caf50" // Verde suave para entrada
+          : esSalida
+          ? "#ff6f61" // Rojo suave para salida
+          : gondolaOcupada
+          ? "#fedb41" // Amarillo suave para góndolas
+          : "white",
       };
 
       cuadros.push(
@@ -88,7 +106,7 @@ export default function MapaCuadricula({ numAncho, numLargo, entradax, entraday,
           {camino && camino.some(([x, y]) => x === columna && y === fila) ? (
             <View style={styles.camino}></View>
           ) : null}
-          
+
           {productosSeleccionados.map((producto) => {
             if (esEntrada) {
               return (
@@ -106,7 +124,10 @@ export default function MapaCuadricula({ numAncho, numLargo, entradax, entraday,
             }
             if (gondolaOcupada && producto.GondolaId === gondolaOcupada.id) {
               return (
-                <View key={producto.id} style={calculateCirclePosition(producto.ubicExacta)}>
+                <View
+                  key={producto.id}
+                  style={calculateCirclePosition(producto.ubicExacta)}
+                >
                   <Text style={styles.numProd}>{gondolaOcupada.id}</Text>
                 </View>
               );
@@ -149,7 +170,9 @@ export default function MapaCuadricula({ numAncho, numLargo, entradax, entraday,
     <View style={styles.containerCuadricula}>
       {productosSeleccionados.map((producto) => (
         <View key={producto.id} style={styles.itemProd}>
-          <Text style={styles.prodItem}>{producto.GondolaId}: {producto.nombre}</Text>
+          <Text style={styles.prodItem}>
+            {producto.GondolaId}: {producto.nombre}
+          </Text>
         </View>
       ))}
       <ScrollView style={styles.verticalScroll}>
@@ -163,68 +186,68 @@ export default function MapaCuadricula({ numAncho, numLargo, entradax, entraday,
 
 const styles = StyleSheet.create({
   containerCuadricula: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
-    display: 'flex',
+    display: "flex",
   },
   cuadricula: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
   },
   verticalScroll: {
     maxHeight: 500,
   },
   fila: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   cuadro: {
     width: 30,
     height: 30,
     borderWidth: 1,
-    borderColor: '#ddd',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    borderColor: "#ddd",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
   },
   textES: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
   numProd: {
     fontSize: 12,
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
   camino: {
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: '#4a90e2',
-    position: 'absolute',
+    backgroundColor: "#4a90e2",
+    position: "absolute",
     top: 5,
     left: 5,
   },
   itemProd: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 8,
     padding: 10,
     marginVertical: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    boxShadowColor: "#000",
+    boxShadowOffset: { width: 0, height: 2 },
+    boxShadowOpacity: 0.1,
+    boxShadowRadius: 4,
     elevation: 3,
-    width: '90%',
-    alignItems: 'center',
+    width: "90%",
+    alignItems: "center",
   },
   prodItem: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
 });

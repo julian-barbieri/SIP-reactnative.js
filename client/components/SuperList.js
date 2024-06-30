@@ -1,104 +1,83 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, FlatList, StyleSheet } from 'react-native';
-import axios from 'axios';
-import { SelectList } from 'react-native-dropdown-select-list'
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { Text, View, FlatList, StyleSheet, Pressable } from "react-native";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SuperList() {
-    const [listaSuper, setListaSuper] = useState([]);
-    const [superCompleto, setSuperCompleto] = useState([]);
-    const [supermercado, setSupermercado] = useState('');
-    const navigation = useNavigation();
+  const [listaSuper, setListaSuper] = useState([]);
+  const [superCompleto, setSuperCompleto] = useState([]);
+  const navigation = useNavigation();
 
-    useEffect(() => {
-        axios.get(`http://localhost:3001/supermercados/with-products`)
-            .then((response) => {
-                console.log(response.data);
-                setSuperCompleto(response.data);
-                const supermercadosOptions = response.data.map((supermercado) => ({
-                    key: supermercado.id,
-                    value: `${supermercado.nombre} - ${supermercado.direccion}`,
-                }));
-                setListaSuper(supermercadosOptions);
-            })
-            .catch((error) => {
-                console.error('Error al obtener la lista de supermercados:', error);
-            });
-    }, []);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/supermercados/with-products`)
+      .then((response) => {
+        setSuperCompleto(response.data);
+        const supermercadosOptions = response.data.map((supermercado) => ({
+          key: supermercado.id,
+          nombre: supermercado.nombre,
+          direccion: supermercado.direccion,
+        }));
+        setListaSuper(supermercadosOptions);
+      })
+      .catch((error) => {
+        console.error("Error al obtener la lista de supermercados:", error);
+      });
+  }, []);
 
+  const handleOnSelect = (supermercado) => {
+    navigation.navigate("Welcome", {
+      idSupermercado: supermercado.key,
+    });
+  };
 
-
-    const handleOnSelect = (selectedOption) => {
-        setSupermercado(selectedOption)
-        // selectedOption contiene el supermercado seleccionado
-        if (supermercado) {
-          navigation.navigate('Welcome', {
-            idSupermercado: supermercado,
-          });
-        }
-    };
-    
-    return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Seleccioná el supermercado</Text>
-            <SelectList 
-                data={listaSuper}
-                save='key' 
-                search={false}
-                setSelected={(val) => setSupermercado(val)}
-                placeholder='Seleccioná una opción'
-                onSelect={handleOnSelect}
-                defaultOption={{ key: '', value: 'Seleccioná una opción' }} // Reset to default placeholder
-            />
-            
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Seleccioná el supermercado</Text>
+      <FlatList
+        data={listaSuper}
+        keyExtractor={(item) => item.key.toString()}
+        renderItem={({ item }) => (
+          <Pressable
+            style={styles.itemContainer}
+            onPress={() => handleOnSelect(item)}
+          >
+            <Text style={styles.itemText}>{item.nombre}</Text>
+            <Text style={styles.itemDireccion}>{item.direccion}</Text>
+          </Pressable>
+        )}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        justifyContent: 'flex-start',
-        
-    },
-    header: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    itemContainer: {
-        backgroundColor: '#f0f0f0',
-        borderRadius: 8,
-        padding: 16,
-        marginBottom: 10,
-    },
-    itemText: {
-        fontSize: 16,
-    },
-    dropdown: {
-        margin: 16,
-        height: 50,
-        borderBottomColor: 'gray',
-        borderBottomWidth: 0.5,
-      },
-    imageStyle: {
-        width: 35,
-        height: 24,
-    },
-    placeholderStyle: {
-        fontSize: 16,
-    },
-    selectedTextStyle: {
-        fontSize: 16,
-        marginLeft: 8,
-    },
-    iconStyle: {
-        width: 30,
-        height: 30,
-    },
-    inputSearchStyle: {
-        height: 30,
-        fontSize: 16,
-    },
+  container: {
+    flex: 1,
+    padding: 16,
+    justifyContent: "flex-start",
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  itemContainer: {
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    padding: 16,
+    marginBottom: 10,
+    elevation: 3,
+  },
+  itemText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  itemDireccion: {
+    fontSize: 16,
+    color: "#555",
+  },
 });

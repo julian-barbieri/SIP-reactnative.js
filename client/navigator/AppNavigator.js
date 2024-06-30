@@ -1,9 +1,6 @@
 // AppNavigator.js
 
-// In App.js in a new project
-
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../screens/LoginScreen.js';
@@ -18,16 +15,34 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="HomeSuper" component={HomeSuperScreen} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Mapa" component={MapaScreen} />
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ headerShown: false }} // Ocultar el encabezado
+        />
+        <Stack.Screen 
+          name="Register" 
+          component={RegisterScreen} 
+          options={{ headerShown: false }} // Ocultar el encabezado
+        />
+        <Stack.Screen 
+          name="HomeSuper" 
+          component={HomeSuperScreen} 
+          options={{ headerShown: false }} // Ocultar el encabezado
+        />
+        <Stack.Screen 
+          name="Welcome" 
+          component={WelcomeScreen} // Usa el DrawerNavigator aquí
+          options={{ headerShown: false }} // Ocultar el encabezado del Stack, ya que lo maneja el Drawer
+        />
+        <Stack.Screen 
+          name="Mapa" 
+          component={MapaScreen} 
+          options={{ headerShown: false }} // Ocultar el encabezado
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default AppNavigator;
-
-

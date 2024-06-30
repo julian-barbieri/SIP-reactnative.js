@@ -4,9 +4,7 @@ import distanciaEntrePuntos from "./distanciaEntrePuntos";
 
 export default function encontrarCamino(entradaX, entradaY, gondolax, gondolay, gondolas, numAncho, numLargo) {
     // Define las direcciones posibles (arriba, abajo, izquierda, derecha, y diagonales si, deseas)
-    //console.log("entrada: " + entradaX + ":" +entradaY);
-    //console.log("gondolas: " + gondolas);
-    //console.log("gondola final: " + gondolax + ":" + gondolay);
+
     const direcciones = [
       [0, -1], // Arriba
       [0, 1],  // Abajo
@@ -55,7 +53,7 @@ export default function encontrarCamino(entradaX, entradaY, gondolax, gondolay, 
           const nuevoX = nodoActual.x + dx;
           const nuevoY = nodoActual.y + dy;
           const ocupada = gondolas.find((gondola) => {
-            //console.log("FOR nuevoX: " + nuevoX + " nuevoY: " + nuevoY + "gondola.ubicaciony: " + gondola.ubicaciony + "gondola.ubicaciony: " + gondola.ubicacionx)
+      
             if(gondola.ubicacionx == gondolax && gondola.ubicaciony == gondolay){
                 return false;
             } 
@@ -75,7 +73,7 @@ export default function encontrarCamino(entradaX, entradaY, gondolax, gondolay, 
               !nodosVisitados.has(`${nuevoX}-${nuevoY}`) &&
               !ocupada
             ) {
-            //console.log("IF nuevoX: " + nuevoX + " nuevoY: " + nuevoY + "nodosVisitados.has(`${nuevoX}-${nuevoY}`): " + nodosVisitados.has(`${nuevoX}-${nuevoY}`) + "ocupada: " + ocupada)
+            
             const gCost = nodoActual.gCost + 1;
             const hCost = distanciaEntrePuntos(nuevoX, nuevoY, gondolax, gondolay);
             const nodoVecino = {

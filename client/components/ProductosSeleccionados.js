@@ -1,10 +1,13 @@
-import React, {useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Ionicons";
 
-export default function ProductosSeleccionados({eliminarProductoSeleccionado, productosSeleccionados, supermercadoId }) {
-
+export default function ProductosSeleccionados({
+  eliminarProductoSeleccionado,
+  productosSeleccionados,
+  supermercadoId,
+}) {
   // Marcar los productos seleccionados al inicializar el componente
   useEffect(() => {
     const initialCheckedItems = {};
@@ -12,50 +15,46 @@ export default function ProductosSeleccionados({eliminarProductoSeleccionado, pr
       initialCheckedItems[producto.id] = true;
     }
   }, [productosSeleccionados]);
-  
 
   const navigation = useNavigation();
 
   const handleSubmit = async (data) => {
-    console.log(productosSeleccionados);
-      navigation.navigate('Mapa', {
-        idSupermercado: supermercadoId,
-        productosSeleccionados: productosSeleccionados, 
-      });
-  }
+    navigation.navigate("Mapa", {
+      idSupermercado: supermercadoId,
+      productosSeleccionados: productosSeleccionados,
+    });
+  };
   return (
     <View style={styles.container}>
-        
-        {/* BOTON FINALIZAR LISTA */}
-        <TouchableOpacity
-            style={[
-                styles.finalizarButton,
-                {
-                backgroundColor: productosSeleccionados.length > 0 ? 'blue' : 'gray',
-                },
-            ]}
-            onPress={handleSubmit}
-            title="Submit"
-            disabled={productosSeleccionados.length <= 0}
-            >
-            <Text style={styles.buttonText}>Finalizar lista</Text>
-        </TouchableOpacity>
+      {/* BOTON FINALIZAR LISTA */}
+      <Pressable
+        style={[
+          styles.finalizarButton,
+          {
+            backgroundColor:
+              productosSeleccionados.length > 0 ? "blue" : "gray",
+          },
+        ]}
+        onPress={handleSubmit}
+        title="Submit"
+        disabled={productosSeleccionados.length <= 0}
+      >
+        <Text style={styles.buttonText}>Finalizar lista</Text>
+      </Pressable>
 
       {productosSeleccionados.map((producto) => (
         <View style={styles.productoSeleccionado} key={producto.id}>
-          
           {/*Eliminar boton*/}
-          <TouchableOpacity 
+          <Pressable
             style={styles.eliminarButton}
             onPress={() => eliminarProductoSeleccionado(producto.id)}
           >
             <Icon style={styles.productoCruz} name="close" size={15} />
-          </TouchableOpacity>
+          </Pressable>
 
           {/*Info del producto*/}
           <Text style={styles.productoNombre}>{producto.nombre}</Text>
           <Text style={styles.productoMarca}>{producto.marca}</Text>
-  
         </View>
       ))}
     </View>
@@ -64,26 +63,26 @@ export default function ProductosSeleccionados({eliminarProductoSeleccionado, pr
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: "90%",
     padding: 10,
     borderRadius: 8,
     marginBottom: 20,
-    border: 1
+    border: 1,
   },
   titulo: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   productoSeleccionado: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 10,
     marginTop: 10,
   },
   productoNombre: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: 10,
   },
   productoMarca: {
@@ -91,19 +90,19 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   finalizarButton: {
-    backgroundColor: '#4a90e2', // Color de fondo predeterminado
+    backgroundColor: "#4a90e2", // Color de fondo predeterminado
     padding: 10,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white', // Color del texto
+    fontWeight: "bold",
+    color: "white", // Color del texto
   },
   productoCruz: {
-    color: '#ff6f61', // Color
-  }
-  
+    color: "#ff6f61", // Color
+  },
+
   // Agregar más estilos según tus necesidades
 });

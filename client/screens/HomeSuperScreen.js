@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import axios from 'axios';
-import { useNavigation } from '@react-navigation/native'; // Importa useNavigation para manejar la navegación
-import SuperList from '../components/SuperList';
-import Logo from '../components/Logo.js';
+import React, { useEffect, useState } from "react";
+import { Text, View, StyleSheet, Pressable } from "react-native";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native"; // Importa useNavigation para manejar la navegación
+import SuperList from "../components/SuperList";
+import Logo from "../components/Logo.js";
 
 export default function HomeSuperScreen({ route, navigation }) {
   const { id } = route.params;
   const [cliente, setCliente] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3004/clientes/clienteById/${id}`).then((response) => {
-      setCliente(response.data);
-    });
+    axios
+      .get(`http://localhost:3004/clientes/clienteById/${id}`)
+      .then((response) => {
+        setCliente(response.data);
+      });
   }, [id]);
 
   const nav = useNavigation(); // Obtiene el objeto de navegación
@@ -23,18 +25,14 @@ export default function HomeSuperScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Logo/>
+      <Logo />
       <Text style={styles.welcomeText}>
         Bienvenido al Market List {cliente.nombre_completo} !
       </Text>
-      <SuperList style={styles.selectSuper}/>
-      <TouchableOpacity 
-        style={styles.salirButton} 
-        onPress={handleSalir} 
-        title="Salir"
-      >
-      <Text style={styles.salirButtonText}>Salir</Text>
-      </TouchableOpacity>
+      <SuperList style={styles.selectSuper} />
+      <Pressable style={styles.salirButton} onPress={handleSalir} title="Salir">
+        <Text style={styles.salirButtonText}>Salir</Text>
+      </Pressable>
     </View>
   );
 }
@@ -42,8 +40,8 @@ export default function HomeSuperScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
   },
 
   welcomeText: {
@@ -54,14 +52,14 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   salirButton: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
     marginBottom: 100,
   },
   salirButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
 });
