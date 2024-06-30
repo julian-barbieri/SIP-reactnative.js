@@ -32,7 +32,7 @@ export default function ProductosSeleccionados({
           styles.finalizarButton,
           {
             backgroundColor:
-              productosSeleccionados.length > 0 ? "blue" : "gray",
+              productosSeleccionados.length > 0 ? "#4169e1" : "gray",
           },
         ]}
         onPress={handleSubmit}
@@ -49,9 +49,9 @@ export default function ProductosSeleccionados({
             style={styles.eliminarButton}
             onPress={() => eliminarProductoSeleccionado(producto.id)}
           >
-            <Text>
-              <MaterialIcons style={styles.productoCruz} name="close" size={15} selectable={undefined}/>
-            </Text>{/*<Icon style={styles.productoCruz} name="close" size={15} />*/}
+          
+          <MaterialIcons style={styles.productoCruz} name="close" size={15} selectable={undefined}/>
+          
           </Pressable>
 
           {/*Info del producto*/}

@@ -22,10 +22,11 @@ const styles = StyleSheet.create({
     border: 1,
     borderRadius: 8,
     padding: 10,
-    backgroundColor: "blue",
+    backgroundColor: "#4169e1",
     marginTop: 50,
     marginRight: 75,
     marginLeft: 75,
+    marginBottom: 50,
     alignItems: "center",
   },
   finalizarButtonTexto: {

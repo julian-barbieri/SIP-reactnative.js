@@ -1,7 +1,5 @@
-// WelcomeScreen.js
-
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import axios from "axios";
 import ListaProductos from "../components/ListaProductos";
 
@@ -22,19 +20,6 @@ export default function WelcomeScreen({ route, navigation }) {
       });
   }, [idSupermercado]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/productos/bySuper/${idSupermercado}`)
-      .then((response) => {
-        setListaProductos(response.data);
-      })
-      .catch((error) => {
-        console.error(
-          "Error al obtener los datos de los productos del supermercado:",
-          error
-        );
-      });
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -52,14 +37,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center", // Asegura que el contenido esté centrado verticalmente
     marginTop: 20,
     backgroundColor: "#f0f0f0",
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '90%',
-    justifyContent: 'space-between',
+    justifyContent: 'center', // Alinear el texto horizontalmente en el centro
   },
   supermercadoText: {
     fontSize: 24,

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // Espacio horizontal alrededor del texto
   },
   salida: {
-    color: "#dc3545", // Rojo
+    color: "#cd5c5c", // Rojo
     fontWeight: "bold",
     fontSize: 16,
     paddingHorizontal: 10,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   camino: {
-    color: "#007bff", // Azul
+    color: "#4169e1", // Azul
     fontSize: 14,
     marginTop: 10,
     textAlign: "center",

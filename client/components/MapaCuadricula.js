@@ -95,7 +95,7 @@ export default function MapaCuadricula({
         backgroundColor: esEntrada
           ? "#4caf50" // Verde suave para entrada
           : esSalida
-          ? "#ff6f61" // Rojo suave para salida
+          ? "#cd5c5c" // Rojo suave para salida
           : gondolaOcupada
           ? "#fedb41" // Amarillo suave para góndolas
           : "white",

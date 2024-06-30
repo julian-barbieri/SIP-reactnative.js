@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   salirButton: {
-    backgroundColor: "red",
+    backgroundColor: "#cd5c5c",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,

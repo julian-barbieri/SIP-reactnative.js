@@ -87,7 +87,7 @@ export default function LoginForm() {
               role="button"
               style={[
                 styles.loginButton,
-                { backgroundColor: isValid ? "blue" : "gray" },
+                { backgroundColor: isValid ? "#4169e1" : "gray" },
               ]}
               onPress={handleSubmit}
               title="Submit"

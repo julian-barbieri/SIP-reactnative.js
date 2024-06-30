@@ -113,7 +113,7 @@ export default function RegisterForm() {
             <Pressable
               style={[
                 styles.registerButton,
-                { backgroundColor: isValid ? "blue" : "gray" },
+                { backgroundColor: isValid ? "#4169e1" : "gray" },
               ]}
               onPress={handleSubmit}
               title="Submit"
