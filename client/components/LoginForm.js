@@ -22,7 +22,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:3004/clientes/login",
+        "http://192.168.0.109:3004/clientes/login",
         data
       );
       const idCliente = response.data.id;
@@ -50,15 +50,7 @@ export default function LoginForm() {
         onSubmit={onSubmit}
         validationSchema={loginValidationSchema}
       >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-          isValid,
-        }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, isValid }) => (
           <View>
             {loginError && (
               <Text style={styles.errorMessage}>

@@ -11,7 +11,7 @@ export default function WelcomeScreen({ route, navigation }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/supermercados/superById/${idSupermercado}`)
+      .get(`http://192.168.0.109:3001/supermercados/superById/${idSupermercado}`)
       .then((response) => {
         setSupermercado(response.data);
       })
@@ -24,9 +24,6 @@ export default function WelcomeScreen({ route, navigation }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <BackButton />
-        <Text style={styles.supermercadoText}>
-          Supermercado: {supermercado.nombre}
-        </Text>
       </View>
       <ListaProductos supermercadoId={idSupermercado} />
     </View>
@@ -37,19 +34,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    marginTop: 10,
-    width: '100%',
+    marginTop: 40,
+    width: "100%",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start', // Alinear el contenido al inicio del eje principal
-    width: '100%',
-  },
-  supermercadoText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: 'center',
-    flex: 1, // Hacer que el texto ocupe el espacio restante para centrarlo
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start", // Alinear el contenido al inicio del eje principal
+    width: "100%",
   },
 });

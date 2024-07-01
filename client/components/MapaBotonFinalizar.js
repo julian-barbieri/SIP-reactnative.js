@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   finalizarButtonTexto: {
+    fontSize: 18,
     color: "white",
     fontWeight: "bold",
   },

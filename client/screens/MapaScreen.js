@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import axios from "axios";
 import Mapa from "../components/Mapa.js";
 import MapaBotonFinalizar from "../components/MapaBotonFinalizar.js";
@@ -11,7 +11,7 @@ export default function MapaScreen({ route }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/supermercados/superById/${idSupermercado}`)
+      .get(`http://192.168.0.109:3001/supermercados/superById/${idSupermercado}`)
       .then((response) => {
         setSupermercado(response.data);
       })
@@ -23,11 +23,13 @@ export default function MapaScreen({ route }) {
   return (
     <View style={styles.container}>
       <BackButton />
+      <ScrollView>
       <Mapa
         supermercado={supermercado}
         productosSeleccionados={productosSeleccionados}
       />
       <MapaBotonFinalizar idSupermercado={idSupermercado} />
+      </ScrollView>
     </View>
   );
 }
@@ -36,8 +38,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "left",
-    marginTop: 10,
-    width: '100%',
-    justifyContent: 'flex-start',
-  }
+    marginTop: 40,
+    width: "100%",
+    justifyContent: "flex-start",
+  },
 });

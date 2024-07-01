@@ -5,13 +5,13 @@ import { useNavigation } from "@react-navigation/native"; // Importa useNavigati
 import SuperList from "../components/SuperList";
 import Logo from "../components/Logo.js";
 
-export default function HomeSuperScreen({ route, navigation }) {
+export default function HomeSuperScreen({ route }) {
   const { id } = route.params;
   const [cliente, setCliente] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3004/clientes/clienteById/${id}`)
+      .get(`http://192.168.0.109:3004/clientes/clienteById/${id}`)
       .then((response) => {
         setCliente(response.data);
       });
@@ -27,11 +27,13 @@ export default function HomeSuperScreen({ route, navigation }) {
     <View style={styles.container}>
       <Logo />
       <Text style={styles.welcomeText}>
-        Bienvenido al Market List {cliente.nombre_completo} !
+        Bienvenido al Market List {cliente.nombre_completo}!
       </Text>
       <SuperList style={styles.selectSuper} />
       <Pressable style={styles.salirButton} onPress={handleSalir} title="Salir">
-        <Text style={styles.salirButtonText}>Salir</Text>
+        <Text style={styles.salirButtonText}>
+          Salir
+        </Text>
       </Pressable>
     </View>
   );
@@ -42,8 +44,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "#f0f0f0",
+    marginTop: 40,
   },
-
   welcomeText: {
     fontSize: 20,
     marginBottom: 20,
@@ -57,6 +59,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 5,
     marginBottom: 100,
+    alignItems: "auto",
+    justifyContent: "auto",
   },
   salirButtonText: {
     color: "white",

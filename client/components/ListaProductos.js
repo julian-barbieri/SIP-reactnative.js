@@ -1,4 +1,3 @@
-// ListaProductos.js
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -8,17 +7,16 @@ import {
   Dimensions,
   TextInput,
   Pressable,
+  ScrollView
 } from "react-native";
 import axios from "axios";
 import ProductosSeleccionados from "../components/ProductosSeleccionados";
-import { useNavigation } from '@react-navigation/native';
 
 export default function ListaProductos({ supermercadoId }) {
   const [listaProductos, setListaProductos] = useState([]);
   const [search, setSearch] = useState(""); // Estado para el término de búsqueda
-  const [selectedProduct, setSelectedProduct] = useState([]);
   const [productosSeleccionados, setProductosSeleccionados] = useState([]);
-  
+
   useEffect(() => {
     axios
       .get(`http://192.168.0.109:3001/productos/bySuper/${supermercadoId}`)
@@ -33,30 +31,20 @@ export default function ListaProductos({ supermercadoId }) {
       });
   }, [supermercadoId]);
 
-  const { width } = Dimensions.get("window"); // Obtener el ancho de la ventana
-
   const eliminarProductoSeleccionado = (id) => {
-    const item = filteredProductos.find((item) => item.id === id);
     setProductosSeleccionados((prevProductos) =>
-      prevProductos.filter((producto) => producto.id !== item.id)
+      prevProductos.filter((producto) => producto.id !== id)
     );
   };
 
   const quitarProductosSinStock = (listaProductos) => {
-    const productosSinStock = [];
-    listaProductos.map((producto) => {
-      if (producto.stock === true) {
-        productosSinStock.push(producto);
-      }
-    });
-    return productosSinStock;
+    return listaProductos.filter((producto) => producto.stock === true);
   };
 
   // Filtrar la lista de productos según el término de búsqueda
   const filteredProductos = quitarProductosSinStock(listaProductos).filter(
     (item) =>
-      (item.stock === true &&
-        item.nombre.toLowerCase().includes(search.toLowerCase())) || // Búsqueda por nombre
+      item.nombre.toLowerCase().includes(search.toLowerCase()) || // Búsqueda por nombre
       item.marca.toLowerCase().includes(search.toLowerCase()) || // Búsqueda por marca
       item.categoria.toLowerCase().includes(search.toLowerCase()) || // Búsqueda por categoría
       item.subCategoria.toLowerCase().includes(search.toLowerCase()) // Búsqueda por subcategoría
@@ -66,29 +54,19 @@ export default function ListaProductos({ supermercadoId }) {
     const item = filteredProductos.find((item) => item.id === id);
     // Verificar si el producto ya está en la lista de productos seleccionados
     if (
-      !productosSeleccionados.some(
-        (selected) => selected.id === item.id
-      ) &&
-      productosSeleccionados.length <= 4
+      !productosSeleccionados.some((selected) => selected.id === item.id) &&
+      productosSeleccionados.length < 5 // Límite de 5 productos
     ) {
-      // Si no está en la lista, agrégalo
-      setProductosSeleccionados([
-        ...productosSeleccionados,
-        item,
-      ]);
-    }
-    if (productosSeleccionados.length > 4) {
+      setProductosSeleccionados([...productosSeleccionados, item]);
+    } else if (productosSeleccionados.length >= 5) {
       alert("Máximo 5 productos");
     }
   };
 
   return (
     <View style={styles.container}>
-      <ProductosSeleccionados
-        productosSeleccionados={productosSeleccionados}
-        eliminarProductoSeleccionado={eliminarProductoSeleccionado}
-        supermercadoId={supermercadoId}
-      />
+
+      {/* Barra de búsqueda */}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -97,45 +75,52 @@ export default function ListaProductos({ supermercadoId }) {
           onChangeText={(text) => setSearch(text)}
         />
       </View>
-      <View style={styles.listaProductos}>
-        <FlatList
-          numColumns={2}
-          data={filteredProductos} // Mostrar la lista filtrada
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <Pressable
-              style={[
-                styles.productoItem,
-                productosSeleccionados.some(producto => producto.id === item.id) && styles.productoSeleccionado, // Estilo condicional
-                ]}
-                onPress={() => productoSeleccionado(item.id)}
-            >
-              <Text style={styles.productoNombre}>{item.nombre}</Text>
-              <Text style={styles.productoMarca}>{item.marca}</Text>
-              {item.descuento === 0 && (
-                <Text style={styles.productoPrecio}>
+
+      {/* Lista de productos */}
+      <FlatList
+        contentContainerStyle={styles.flatListContent}
+        numColumns={2}
+        data={filteredProductos} // Mostrar la lista filtrada
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <Pressable
+            style={[
+              styles.productoItem,
+              productosSeleccionados.some(
+                (producto) => producto.id === item.id
+              ) && styles.productoSeleccionado, // Estilo condicional
+            ]}
+            onPress={() => productoSeleccionado(item.id)}
+          >
+            <Text style={styles.productoNombre}>{item.nombre}</Text>
+            <Text style={styles.productoMarca}>{item.marca}</Text>
+            {item.descuento === 0 && (
+              <Text style={styles.productoPrecio}>${item.precioUnidad}</Text>
+            )}
+            {item.descuento > 0 && (
+              <>
+                <Text style={styles.productoPrecioDescuento}>
                   ${item.precioUnidad}
                 </Text>
-              )}
-              {item.descuento > 0 && (
-                <>
-                  <Text style={styles.productoPrecioDescuento}>
-                    ${item.precioUnidad}
-                  </Text>
-                  <Text style={styles.productoPrecio}>
-                    ${(
-                      item.precioUnidad * (1 - item.descuento / 100)
-                    ).toFixed(2)}
-                  </Text>
-                </>
-              )}
-              {item.stock === false && (
-                <Text style={styles.stock}>Sin stock</Text>
-              )}
-            </Pressable>
-          )}
-        />
-      </View>
+                <Text style={styles.productoPrecio}>
+                  ${(
+                    item.precioUnidad * (1 - item.descuento / 100)
+                  ).toFixed(2)}
+                </Text>
+              </>
+            )}
+            {item.stock === false && (
+              <Text style={styles.stock}>Sin stock</Text>
+            )}
+          </Pressable>
+        )}
+      />
+      {/* Productos seleccionados */}
+      <ProductosSeleccionados
+        productosSeleccionados={productosSeleccionados}
+        eliminarProductoSeleccionado={eliminarProductoSeleccionado}
+        supermercadoId={supermercadoId}
+      />
     </View>
   );
 }
@@ -143,16 +128,7 @@ export default function ListaProductos({ supermercadoId }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    minWidth: "80%",
     alignItems: "center",
-    marginTop: 20,
-  },
-  listaProductos: {
-    marginRight: 10,
-    marginLeft: 10,
-    width: "auto",
-    height: "auto",
-    flex: 1,
   },
   inputContainer: {
     width: "90%",
@@ -165,15 +141,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "#ddd",
     borderWidth: 1,
-    marginBottom: 10,
     padding: 10,
     borderRadius: 8,
     backgroundColor: "#fff",
-    boxShadowColor: "#000",
-    boxShadowOffset: { width: 0, height: 2 },
-    boxShadowOpacity: 0.1,
-    boxShadowRadius: 4,
-    elevation: 3,
+  },
+  flatListContent: {
+    paddingBottom: 20,
   },
   productoItem: {
     backgroundColor: "#ffffff",
@@ -182,10 +155,8 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
     padding: 16,
     marginBottom: 10,
-    marginTop: 10,
-    marginRight: 10,
-    marginLeft: 10,
-    minWidth: 175,
+    marginHorizontal: 10,
+    width: Dimensions.get("window").width / 2 - 30, // Ajusta el ancho para permitir margen
     elevation: 3,
   },
   productoNombre: {
@@ -204,19 +175,6 @@ const styles = StyleSheet.create({
   stock: {
     color: "#dc3545",
     fontWeight: "bold",
-  },
-  productosSeleccionadosContainer: {
-    flex: 1,
-    alignItems: "center",
-    marginTop: 20,
-    backgroundColor: "#e0e0e0",
-    padding: 10,
-    borderRadius: 8,
-  },
-  productosSeleccionadosTitulo: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
   },
   productoSeleccionado: {
     borderColor: "#000", // Cambia el color del borde a negro si está seleccionado
