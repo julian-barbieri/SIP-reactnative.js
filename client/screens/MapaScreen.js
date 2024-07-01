@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import axios from "axios";
 import Mapa from "../components/Mapa.js";
 import MapaBotonFinalizar from "../components/MapaBotonFinalizar.js";
+import BackButton from "../components/buttons/BackButton.js";
 
 export default function MapaScreen({ route }) {
   const { idSupermercado, productosSeleccionados } = route.params;
@@ -20,7 +21,8 @@ export default function MapaScreen({ route }) {
   }, [idSupermercado]);
 
   return (
-    <View>
+    <View style={styles.container}>
+      <BackButton />
       <Mapa
         supermercado={supermercado}
         productosSeleccionados={productosSeleccionados}
@@ -29,3 +31,13 @@ export default function MapaScreen({ route }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "left",
+    marginTop: 10,
+    width: '100%',
+    justifyContent: 'flex-start',
+  }
+});

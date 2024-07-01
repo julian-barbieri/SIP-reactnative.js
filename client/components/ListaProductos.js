@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
     minWidth: "80%",
     alignItems: "center",
     marginTop: 20,
-    backgroundColor: "#f0f0f0",
   },
   listaProductos: {
     marginRight: 10,

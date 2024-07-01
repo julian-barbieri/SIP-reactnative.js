@@ -49,9 +49,7 @@ export default function ProductosSeleccionados({
             style={styles.eliminarButton}
             onPress={() => eliminarProductoSeleccionado(producto.id)}
           >
-          
-          <MaterialIcons style={styles.productoCruz} name="close" size={15} selectable={undefined}/>
-          
+            <MaterialIcons style={styles.productoCruz} name="close" size={15} selectable={undefined}/>
           </Pressable>
 
           {/*Info del producto*/}

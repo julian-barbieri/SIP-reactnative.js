@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import axios from "axios";
 import ListaProductos from "../components/ListaProductos";
+import BackButton from "../components/buttons/BackButton";
 
 export default function WelcomeScreen({ route, navigation }) {
   const { idSupermercado } = route.params;
@@ -9,7 +10,6 @@ export default function WelcomeScreen({ route, navigation }) {
   const [listaProductos, setListaProductos] = useState([]);
 
   useEffect(() => {
-    // Realiza la solicitud de Axios para obtener datos del supermercado
     axios
       .get(`http://localhost:3001/supermercados/superById/${idSupermercado}`)
       .then((response) => {
@@ -20,10 +20,10 @@ export default function WelcomeScreen({ route, navigation }) {
       });
   }, [idSupermercado]);
 
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <BackButton />
         <Text style={styles.supermercadoText}>
           Supermercado: {supermercado.nombre}
         </Text>
@@ -37,17 +37,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center", // Asegura que el contenido esté centrado verticalmente
-    marginTop: 20,
-    backgroundColor: "#f0f0f0",
+    marginTop: 10,
+    width: '100%',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // Alinear el texto horizontalmente en el centro
+    justifyContent: 'flex-start', // Alinear el contenido al inicio del eje principal
+    width: '100%',
   },
   supermercadoText: {
     fontSize: 24,
     fontWeight: "bold",
+    textAlign: 'center',
+    flex: 1, // Hacer que el texto ocupe el espacio restante para centrarlo
   },
 });

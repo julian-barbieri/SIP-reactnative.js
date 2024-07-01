@@ -5,6 +5,7 @@ import MapaTitulo from "./MapaTitulo";
 import MapaListaGondolas from "./MapaListaGondolas";
 import MapaCuadricula from "./MapaCuadricula";
 
+
 export default function Mapa({ supermercado, productosSeleccionados }) {
   //const numAncho = supermercado.ancho;
   //const numLargo = supermercado.largo;
