@@ -3,8 +3,8 @@ import distanciaEntrePuntos from "./distanciaEntrePuntos";
 
 
 export default function encontrarCamino(entradaX, entradaY, gondolax, gondolay, gondolas, numAncho, numLargo) {
-    // Define las direcciones posibles (arriba, abajo, izquierda, derecha, y diagonales si, deseas)
-
+    
+  // Define las direcciones posibles (arriba, abajo, izquierda, derecha, y diagonales si, deseas)
     const direcciones = [
       [0, -1], // Arriba
       [0, 1],  // Abajo
@@ -14,10 +14,10 @@ export default function encontrarCamino(entradaX, entradaY, gondolax, gondolay, 
   
     // Define un conjunto de nodos visitados
     const nodosVisitados = new Set();
+
     // Define una cola de prioridad para los nodos abiertos
     const nodosAbiertos = new PriorityQueue();
     
-  
     // Crea el nodo inicial
     const nodoInicial = {
       x: entradaX,

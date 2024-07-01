@@ -11,7 +11,9 @@ export default function MapaScreen({ route }) {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.109:3001/supermercados/superById/${idSupermercado}`)
+      .get(
+        `http://192.168.0.109:3001/supermercados/superById/${idSupermercado}`
+      )
       .then((response) => {
         setSupermercado(response.data);
       })
@@ -24,11 +26,11 @@ export default function MapaScreen({ route }) {
     <View style={styles.container}>
       <BackButton />
       <ScrollView>
-      <Mapa
-        supermercado={supermercado}
-        productosSeleccionados={productosSeleccionados}
-      />
-      <MapaBotonFinalizar idSupermercado={idSupermercado} />
+        <Mapa
+          supermercado={supermercado}
+          productosSeleccionados={productosSeleccionados}
+        />
+        <MapaBotonFinalizar idSupermercado={idSupermercado} />
       </ScrollView>
     </View>
   );

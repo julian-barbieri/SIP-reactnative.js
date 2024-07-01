@@ -55,20 +55,36 @@ export default function MapaCuadricula({
 
     switch (ubicExacta) {
       case "derecha":
+        circleStyle.borderRadius = 0;
         circleStyle.right = 0;
-        circleStyle.top = 7.5;
+        circleStyle.top = 2.5;
+        circleStyle.height= "80%",
+        circleStyle.width= 8;
+        circleStyle.backgroundColor = '#fd7e14';
         break;
       case "izquierda":
+        circleStyle.borderRadius = 0;
         circleStyle.left = 0;
-        circleStyle.top = 7.5;
+        circleStyle.top = 2.5;
+        circleStyle.height= "80%",
+        circleStyle.width= 8;
+        circleStyle.backgroundColor = '#fd7e14';
         break;
       case "arriba":
+        circleStyle.borderRadius = 0;
         circleStyle.top = 0;
-        circleStyle.right = 7.5;
+        circleStyle.right = 2.5;
+        circleStyle.height= "80%",
+        circleStyle.width= 8;
+        circleStyle.backgroundColor = '#fd7e14';
         break;
       case "abajo":
+        circleStyle.borderRadius = 0;
         circleStyle.bottom = 0;
-        circleStyle.right = 7.5;
+        circleStyle.right = 2.5;
+        circleStyle.height= 8,
+        circleStyle.width= "80%";
+        circleStyle.backgroundColor = '#fd7e14';
         break;
     }
 
@@ -103,7 +119,7 @@ export default function MapaCuadricula({
 
       cuadros.push(
         <View key={`${fila}-${columna}`} style={estiloCuadro}>
-          {camino && camino.some(([x, y]) => x === columna && y === fila) ? (
+          {!gondolaOcupada && !esEntrada && camino && camino.some(([x, y]) => x === columna && y === fila) ? (
             <View style={styles.camino}></View>
           ) : null}
 
@@ -111,24 +127,27 @@ export default function MapaCuadricula({
             if (esEntrada) {
               return (
                 <View key={producto.id}>
-                  <Text style={styles.textES}>E</Text>
+                  <Text style={styles.textES}></Text>
                 </View>
               );
             }
             if (esSalida) {
               return (
                 <View key={producto.id}>
-                  <Text style={styles.textES}>S</Text>
+                  <Text style={styles.textES}></Text>
                 </View>
               );
             }
-            if (gondolaOcupada && producto.GondolaId === gondolaOcupada.id) {
+            if (
+                gondolaOcupada && 
+                producto.GondolaId === gondolaOcupada.id
+              ) {
               return (
                 <View
                   key={producto.id}
                   style={calculateCirclePosition(producto.ubicExacta)}
                 >
-                  <Text style={styles.numProd}>{gondolaOcupada.id}</Text>
+                  <Text style={styles.numProd}></Text>
                 </View>
               );
             }

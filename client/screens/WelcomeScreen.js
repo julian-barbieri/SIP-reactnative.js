@@ -11,7 +11,9 @@ export default function WelcomeScreen({ route, navigation }) {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.109:3001/supermercados/superById/${idSupermercado}`)
+      .get(
+        `http://192.168.0.109:3001/supermercados/superById/${idSupermercado}`
+      )
       .then((response) => {
         setSupermercado(response.data);
       })

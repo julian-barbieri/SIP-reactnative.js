@@ -7,7 +7,6 @@ import {
   Dimensions,
   TextInput,
   Pressable,
-  ScrollView
 } from "react-native";
 import axios from "axios";
 import ProductosSeleccionados from "../components/ProductosSeleccionados";
@@ -65,7 +64,6 @@ export default function ListaProductos({ supermercadoId }) {
 
   return (
     <View style={styles.container}>
-
       {/* Barra de búsqueda */}
       <View style={styles.inputContainer}>
         <TextInput
@@ -103,9 +101,7 @@ export default function ListaProductos({ supermercadoId }) {
                   ${item.precioUnidad}
                 </Text>
                 <Text style={styles.productoPrecio}>
-                  ${(
-                    item.precioUnidad * (1 - item.descuento / 100)
-                  ).toFixed(2)}
+                  ${(item.precioUnidad * (1 - item.descuento / 100)).toFixed(2)}
                 </Text>
               </>
             )}

@@ -22,7 +22,7 @@ export default function LoginScreen() {
     <View style={styles.container}>
       <Logo />
       <Header title="Iniciar sesión" />
-      <LoginForm></LoginForm>
+      <LoginForm />
       <Pressable
         role="button"
         style={styles.registerLink}

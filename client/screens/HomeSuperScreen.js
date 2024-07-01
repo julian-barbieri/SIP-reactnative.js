@@ -31,9 +31,7 @@ export default function HomeSuperScreen({ route }) {
       </Text>
       <SuperList style={styles.selectSuper} />
       <Pressable style={styles.salirButton} onPress={handleSalir} title="Salir">
-        <Text style={styles.salirButtonText}>
-          Salir
-        </Text>
+        <Text style={styles.salirButtonText}>Salir</Text>
       </Pressable>
     </View>
   );
