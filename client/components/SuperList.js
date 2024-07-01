@@ -10,7 +10,7 @@ export default function SuperList() {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.109:3001/supermercados/with-products`)
+      .get(`http://192.168.0.117:3001/supermercados/with-products`)
       .then((response) => {
         setSuperCompleto(response.data);
         const supermercadosOptions = response.data.map((supermercado) => ({

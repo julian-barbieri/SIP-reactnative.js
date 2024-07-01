@@ -52,7 +52,6 @@ export default function MapaCuadricula({
       alignItems: "center",
       justifyContent: "center",
     };
-
     switch (ubicExacta) {
       case "derecha":
         circleStyle.borderRadius = 0;
@@ -74,8 +73,8 @@ export default function MapaCuadricula({
         circleStyle.borderRadius = 0;
         circleStyle.top = 0;
         circleStyle.right = 2.5;
-        circleStyle.height= "80%",
-        circleStyle.width= 8;
+        circleStyle.height= 8,
+        circleStyle.width= "80%";
         circleStyle.backgroundColor = '#fd7e14';
         break;
       case "abajo":
